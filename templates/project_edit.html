@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагування проекту</title>
+</head>
+<body>
+    <h1>Редагування проекту</h1>
+
+    <!-- Перевірка, чи користувач має дозвіл на редагування -->
+    {% if perms.some_app.can_edit_Project %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Зберегти зміни</button>
+        </form>
+    {% else %}
+        <p>У вас немає дозволу на редагування цього проекту.</p>
+    {% endif %}
+
+    <a href="{% url 'project_list' %}">Повернутися до списку проектів</a>
+</body>
+</html>

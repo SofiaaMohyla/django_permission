@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project List</title>
+</head>
+<body>
+    <h1>Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <strong>{{ project.name }}</strong><br>
+                {{ project.description }}<br>
+                Дата початку: {{ project.start_date }}<br>
+                Дата закінчення: {{ project.end_date }}
+
+                <!-- Перевірка дозволу на редагування -->
+                {% if perms.some_app.change_project %}
+                    <a href="{% url 'project_edit' project.id %}">Редагувати</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Відображення повідомлення, якщо у користувача немає дозволу на перегляд -->
+    {% if not projects %}
+        <p>Вам недоступні проекти для перегляду.</p>
+    {% endif %}
+</body>
+</html>
